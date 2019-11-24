@@ -1,0 +1,32 @@
+PYTHON = reference vs deepcopy for lists and dicts
+
+Memorize P(n, k) and C(n, k)
+
+Python initialize 2d list
+
+DP = optimization of recursion by storing precomputing info (STILL NEED BASE CASES)
+
+Tail recursion
+
+quickselecting by a pivot x
+
+#### Data Structures
+- Heap property (and times)
+
+#### Tips
+Pad with 1 to 1-index for problems rather than +1 -1 index logic
+
+#### Questions
+Why can't I import with type hints
+Do counters add to space?
+Does space requirement of sort count?
+[0]*x vs. [0 for x in]
+Average case vs Worst case
+
+#### Algos
+Boyer-Moore Majority Voting Algorithm
+https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html
+- Takes 2 passes!
+- Candidate 1 and 2 should NOT be initialized to the same
+
+Reservoir Sampling
