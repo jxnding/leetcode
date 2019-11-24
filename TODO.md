@@ -10,20 +10,33 @@ Tail recursion
 
 quickselecting by a pivot x
 
+Memorize heap runtime
+
+Stream runtime
+
 #### Data Structures
 - Heap property (and times)
 
 #### Tips
 Pad with 1 to 1-index for problems rather than +1 -1 index logic
-
+Think about runtime wrt output rather than input sometimes
 #### Questions
 Why can't I import with type hints
 Do counters add to space?
 Does space requirement of sort count?
 [0]*x vs. [0 for x in]
 Average case vs Worst case
+Runtime for friend-circles
+
+#### Topics
+Infinite series (geometric)
 
 #### Algos
+BFS/DFS
+Binary Search
+GCD
+
+#### Advanced Algos
 Boyer-Moore Majority Voting Algorithm
 https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html
 - Takes 2 passes!
