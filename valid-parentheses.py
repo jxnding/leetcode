@@ -1,3 +1,32 @@
+class Solution(object):
+    def isValid(self, s):
+        # Match info
+        match = {}
+        match['}']='{'
+        match[']']='['
+        match[')']='('
+        #Edge cases
+        if s==None:
+            return False
+        if s=="":
+            return True
+        if s[0] not in match.values():
+            return False
+        
+        curr = []
+        for char in s:
+            if char in match.values(): #open
+                curr.append(char)
+            elif char in match:
+                if curr and curr.pop()==match[char]:
+                    pass
+                else:
+                    return False
+            else: return False #invalid char
+        if curr:
+            return False
+        return True
+#### O(n), O(n); 61, 97 Python2; 92, 100 Python3
 class Solution:
     def isValid(self, s: str) -> bool:
         # Match info
@@ -25,7 +54,9 @@ class Solution:
         if curr=="":
             return True
         return False
-#### Yep, O(n) and O(n). But my solution should use a stack...
+#### Yep, O(n) and O(n); 97, 100. But my solution should use a stack...
+#### 97, 100 for Python3, but only 61, 32 for Python2 (probably has to do with old question)
+
 
 #### I am retarded
 # class Solution:

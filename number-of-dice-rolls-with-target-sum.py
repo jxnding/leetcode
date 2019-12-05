@@ -8,6 +8,8 @@ class Solution:
                 for k in range(1, min(f,j)+1): #assume new die is 1, 2,... can't be bigger than feature(not valid solution)
                     dd[i][j] += dd[i-1][j-k]%mod
         return dd[d][target]%mod
+#### 18, 100 Python3
+#### TODO
 
 #Below doesn't work...
 class Solution:

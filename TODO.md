@@ -27,9 +27,11 @@ Does space requirement of sort count?
 [0]*x vs. [0 for x in]
 Average case vs Worst case
 Runtime for friend-circles
+When to use nonlocal (assignment only?)
 
 #### Topics
 Infinite series (geometric)
+When to use DP
 
 #### Algos
 BFS/DFS
