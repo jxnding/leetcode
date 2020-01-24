@@ -1,52 +1,37 @@
-# My solution
-# Their delimination is fucking bullshit
-from collections import Counter
-import re
 class Solution:
     def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
-        p = paragraph.lower()
-        p = re.split(',| ',p)
-        for i in range(len(p)):
-            p[i] = ''.join(filter(str.isalpha, p[i]))
-        c = Counter(p)
+        paragraph = paragraph.replace('!',' ')
+        paragraph = paragraph.replace('?',' ')
+        paragraph = paragraph.replace('\'',' ')
+        paragraph = paragraph.replace(',',' ')
+        paragraph = paragraph.replace(';',' ')
+        paragraph = paragraph.replace('.',' ')
+        paragraph = paragraph.lower()
+        banned = set(banned)
+        
+        words = {}
+        for word in paragraph.split(' '):
+            if word=='' or word in banned: continue
+            if word in words:
+                words[word]+=1
+            else:
+                words[word]=1
+        
+        maxCount, maxWord = -1, ""
+        for word, count in words.items():
+            if count>maxCount:
+                print("Waka"+word)
+                maxCount = count
+                maxWord = word
+        print(words)
+        print(banned)
+        return maxWord
 
-        maxn, maxword = 0, ""
-        for k,v in c.items():
-            if k == '':
-                continue
-            if v>maxn and not(k in banned):
-                maxn, maxword = v, k
-
-        return maxword
-
-# Given a paragraph and a list of banned words, return the most frequent word that is not in the list of banned words.  It is guaranteed there is at least one word that isn't banned, and that the answer is unique.
-#
-# Words in the list of banned words are given in lowercase, and free of punctuation.  Words in the paragraph are not case sensitive.  The answer is in lowercase.
-#
-#
-#
-# Example:
-#
-# Input:
-# paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
-# banned = ["hit"]
-# Output: "ball"
-# Explanation:
-# "hit" occurs 3 times, but it is a banned word.
-# "ball" occurs twice (and no other word does), so it is the most frequent non-banned word in the paragraph.
-# Note that words in the paragraph are not case sensitive,
-# that punctuation is ignored (even if adjacent to words, such as "ball,"),
-# and that "hit" isn't the answer even though it occurs more because it is banned.
-#
-#
-# Note:
-#
-# 1 <= paragraph.length <= 1000.
-# 0 <= banned.length <= 100.
-# 1 <= banned[i].length <= 10.
-# The answer is unique, and written in lowercase (even if its occurrences in paragraph may have uppercase symbols, and even if it is a proper noun.)
-# paragraph only consists of letters, spaces, or the punctuation symbols !?',;.
-# There are no hyphens or hyphenated words.
-# Words only consist of letters, never apostrophes or other punctuation symbols.
-#
-# Prev
+#### O(n+m), O(n), n=paragraph, m=banned; 88, 100 Python3
+#### Stupid question
+#### TODO: Regex and collections are programmatically useful. See below
+# https://leetcode.com/problems/most-common-word/discuss/123854/C%2B%2BJavaPython-Easy-Solution-with-Explanation
+    def mostCommonWord(self, p, banned):
+        ban = set(banned)
+        words = re.findall(r'\w+', p.lower())
+        return collections.Counter(w for w in words if w not in ban).most_common(1)[0][0]

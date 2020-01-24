@@ -1,3 +1,102 @@
+#### A* below, doesn't work
+import queue
+class Solution:
+    def cutOffTree(self, forest: List[List[int]]) -> int:
+        def neighbor(pos):
+            i, j = pos[0], pos[1]
+            neighbors = []
+            if i>0: neighbors.append((i-1,j))
+            if j>0: neighbors.append((i,j-1))
+            if i<len(forest)-1: neighbors.append((i+1,j))
+            if j<len(forest[0])-1: neighbors.append((i,j+1)) 
+            return neighbors
+        
+        def astar(start, goal):
+            def estimate(start, goal):
+                return abs(start[0]-goal[0])+abs(goal[1]-start[1])
+            visited = set()
+            openSet = queue.PriorityQueue()
+            openSet.put( (0,start) )
+            
+            while not openSet.empty():
+                currDist, curr = openSet.get()
+                if curr==goal:
+                    return currDist, curr
+                visited.add(curr)
+                
+                for n in neighbor(curr):
+                    if n not in visited:
+                        if forest[n[0]][n[1]]==0:
+                            visited.add(n)
+                        else:
+                            visited.add(n)
+                            openSet.put( (currDist+1+estimate(n, goal), n) )
+            return -1, (-1,-1)
+        
+        # Get trees
+        trees = []
+        for i in range(len(forest)):
+            for j in range(len(forest[0])):
+                if forest[i][j]>1: trees.append( (i, j) )
+        # Sort trees
+        trees.sort(key=lambda x:forest[x[0]][x[1]])
+        # BFS across trees
+        ans, pos = 0, (0,0)
+        for i, j in trees:
+            dist, pos = astar(pos, (i,j))
+            if dist==-1: return -1
+            ans += dist
+
+        return ans
+#### BFS solution below (TLE)
+import queue
+class Solution:
+    def cutOffTree(self, forest: List[List[int]]) -> int:
+        def neighbor(pos):
+            i, j = pos[0], pos[1]
+            neighbors = []
+            if i>0: neighbors.append((i-1,j))
+            if j>0: neighbors.append((i,j-1))
+            if i<len(forest)-1: neighbors.append((i+1,j))
+            if j<len(forest[0])-1: neighbors.append((i,j+1)) 
+            return neighbors
+        
+        def bfs(start, goal):
+            visited = set()
+            openSet = queue.Queue()
+            openSet.put( (start,0) )
+            
+            while not openSet.empty():
+                curr, currDist = openSet.get()
+                if forest[curr[0]][curr[1]]==goal:
+                    return currDist, curr
+                visited.add(curr)
+                
+                for n in neighbor(curr):
+                    if n not in visited:
+                        if forest[n[0]][n[1]]==0:
+                            visited.add(n)
+                        else:
+                            visited.add(n)
+                            openSet.put( (n, currDist+1) )
+            return -1, (-1,-1)
+        
+        # Get trees
+        trees = set(forest[i][j] for i in range(len(forest)) for j in range(len(forest[0])) )
+        if 0 in trees: trees.remove(0)
+        if 1 in trees: trees.remove(1)
+        # Sort trees
+        trees = list(trees)
+        trees.sort()
+        # BFS across trees
+        ans, pos = 0, (0,0)
+        for i in trees:
+            dist, pos = bfs(pos, i)
+            if dist==-1: return -1
+            ans += dist
+
+        return ans
+#### 8/9 below
 # My solution (doesn't work yet)
 # Review: BFS vs Dijkstra
 
