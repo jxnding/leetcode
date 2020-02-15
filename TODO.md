@@ -41,7 +41,7 @@ Sequence Summation
 
 #### Algos
 BFS/DFS
-Binary Search
+Binary Search (think of l/r as mean)
 GCD
 
 #### Advanced Algos
