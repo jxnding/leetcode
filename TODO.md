@@ -23,6 +23,7 @@ Stream runtime
 Pad with 1 to 1-index for problems rather than +1 -1 index logic
 Think about runtime wrt output rather than input sometimes
 Don't forget possible solutions after the for loop ends
+
 #### Questions
 Why can't I import with type hints
 Do counters add to space?
@@ -35,6 +36,8 @@ When to use nonlocal (assignment only?)
 #### Topics
 Infinite series (geometric)
 When to use DP
+Sequence Summation
+    1 + 2 + 3 + ... + n = n(n+1)/2
 
 #### Algos
 BFS/DFS
