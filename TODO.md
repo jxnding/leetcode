@@ -23,6 +23,7 @@ Stream runtime
 Pad with 1 to 1-index for problems rather than +1 -1 index logic
 Think about runtime wrt output rather than input sometimes
 Don't forget possible solutions after the for loop ends
+Think about what your runtime gives you for free (ex. sorting)
 
 #### Questions
 Why can't I import with type hints
