@@ -1,36 +1,55 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
 class Solution:
     def isCompleteTree(self, root: TreeNode) -> bool:
-        def dfs(root,d,i,setting):
-            nonlocal depth
-            depth = max(depth,d)
-            if setting:
-                # print(root.val,d,i,setting)
-                nonlocal tree
-                # print(2**depth+i-1)
-                tree[2**depth+i-1] = root.val
-            if root.left: dfs(root.left,d+1,i*2,setting)
-            if root.right: dfs(root.right,d+1,i*2+1,setting)
-        depth = 0
-        dfs(root, depth, 0, False)
-        print(depth)
-        # BFS
-        tree = [-1]*(2**(depth+1)-1)
-        print(len(tree))
-        dfs(root, 0, 0, True)
-        for i in range(2**depth,len(tree)):
-            if tree[i-1]==-1: 
-                print('waka')
-                if (i-1)%2==0: return False # empty right child
-                else:
-                    if tree[i]<tree[(i-1)//2]: return False
-        return True
+        stack, i = [(root, 0, 0)], 0
+        implied = 0
+        while stack:
+            curr, d, j = stack.pop()
+            i += 1
+            implied = max(implied,2**d+j)
+            if curr.left: stack.append((curr.left, d+1, j*2))
+            if curr.right: stack.append((curr.right, d+1, j*2+1))
+        return i == implied
+#### TODO: understand their solution
+#### 78, 100 Python3
+# class Solution:
+#     def isCompleteTree(self, root: TreeNode) -> bool:
+#         stack, i = [(root, 0, 0)], 0
+#         implied = 0
+#         while i<len(stack):
+#             curr, d, j = stack[i]
+#             i += 1
+#             implied = 2**d+j
+#             if curr.left: stack.append((curr.left, d+1, j*2))
+#             if curr.right: stack.append((curr.right, d+1, j*2+1))
+#         return len(stack) == implied
+#### O(n), O(n); 93, 100 Python3
+
+# class Solution:
+#     def isCompleteTree(self, root: TreeNode) -> bool:
+#         def dfs(root,d,i,setting):
+#             nonlocal depth
+#             depth = max(depth,d)
+#             if setting:
+#                 # print(root.val,d,i,setting)
+#                 nonlocal tree
+#                 # print(2**d+i-1)
+#                 tree[2**d+i-1] = root.val
+#             if root.left: dfs(root.left,d+1,i*2,setting)
+#             if root.right: dfs(root.right,d+1,i*2+1,setting)
+#         depth = 0
+#         dfs(root, depth, 0, False)
+#         print(depth)
+#         # BFS
+#         tree = [-1]*(2**(depth+1)-1)
+#         print(len(tree))
+#         dfs(root, 0, 0, True)
+#         print(tree)
+#         blank = False
+#         for i in range(2**depth-1,len(tree)):
+#             if tree[i]==-1: blank = True
+#             elif blank: return False
+#         return True
+#### NOTDONE
 
 # class Solution:
 #     def isCompleteTree(self, root: TreeNode) -> bool:
