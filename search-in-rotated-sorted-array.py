@@ -17,17 +17,15 @@ class Solution:
             elif nums[a]>nums[b]: # Pivot [a,b]
                 valid = [a, b]
         pivot = valid[1] if nums[valid[1]-1]>nums[valid[1]] else 0
-        print(pivot)
         # Find target (binary search)
         l, r = 0, len(nums)-1
         while l <= r:
             mid = (r-l)//2+l
-            print(adjust(mid))
             if nums[adjust(mid)]==target: return adjust(mid)
             elif nums[adjust(mid)]<target: l = mid+1
             else: r = mid-1
         return -1
-#### O(log n), O(1); 88, 100 Python3; 39, 46 Python2
+#### O(log n), O(1); 88, 100 Python3; 89, 40 Python2
 #### GOT IT!
 #### TODO Didn't realize that pivot = smallest value
 
