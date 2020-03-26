@@ -1,5 +1,22 @@
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
+        if len(strs)<1: return ''
+        ans = -1
+        for i, n in enumerate(strs[0]):
+            good = True
+            for s in strs:
+                if i>=len(s): good = False
+                elif s[i]!=n: good = False
+            if good:
+                ans = i
+            else: 
+                break
+        return strs[0][:ans+1]
+#### O(m*n), O(1)
+# 2/29
+
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
         if strs==None:
             return ""
         if strs==[]:
