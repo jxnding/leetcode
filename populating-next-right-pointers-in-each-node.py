@@ -9,6 +9,34 @@ class Node:
 """
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
+        def conn(c):
+            if c.left and c.right:
+                if c.next:
+                    c.right.next = c.next.left
+                c.left.next = c.right
+            if c.right: conn(c.right)
+            if c.left: conn(c.left)
+        if root==None: return None
+        conn(root)
+        return root
+#### O(n), O(1); 86, 89 Python3
+## 4/13
+# Review why below doesn't work
+# class Solution:
+#     def connect(self, root: 'Node') -> 'Node':
+#         def conn(c):
+#             if c.right: conn(c.right)
+#             if c.left and c.right:
+#                 if c.next:
+#                     c.right.next = c.next.left
+#                 c.left.next = c.right
+#             if c.left: conn(c.left)
+#         if root==None: return None
+#         conn(root)
+#         return root
+
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
         def conn(root):
             if root.left!=None:
                 root.left.next = root.right
