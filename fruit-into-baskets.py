@@ -1,3 +1,28 @@
+class Solution:
+    def totalFruit(self, tree: List[int]) -> int:
+        ans = 0
+        for i in range(len(tree)):
+            types = [tree[i], None]
+            total = 1
+            j = i+1
+            while j < len(tree):
+                # if types[0] and types[1]: break
+                if tree[j] == types[0]:
+                    total += 1
+                elif tree[j] == types[1]:
+                    total += 1
+                else:
+                    if types[1] == None:
+                        types[1] = tree[j]
+                        total += 1
+                    else:
+                        break
+                j += 1
+            ans = max(ans, total)
+        return ans
+#### TLE, stupid question
+# 4/13
+
 import pdb
 class Solution:
     def totalFruit(self, tree):
@@ -42,4 +67,4 @@ class Solution:
 Solution().totalFruit([1,2,3,2,2])
 Solution().totalFruit([3,6,6,6,3,6,3])
 #### Doesn't work
-#### TODO
+#### LOL

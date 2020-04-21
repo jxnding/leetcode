@@ -3,7 +3,7 @@ class Solution:
         from math import factorial as f
         return f(m+n-2)//f(m-1)//f(n-1)
 #### O(n), O(1); 91, 100 Python3
-#### TODO: Runtime of factorial?
+#### REVIEW: Runtime of factorial?
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
         paths = [1 for _ in range(m)]

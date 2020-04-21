@@ -54,3 +54,9 @@ https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html
 - Candidate 1 and 2 should NOT be initialized to the same
 
 Reservoir Sampling
+
+
+CONCISE
+REVIEW
+TODO
+LOL
