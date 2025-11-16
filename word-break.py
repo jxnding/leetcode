@@ -16,59 +16,83 @@ class Solution:
             else:
                 return False
         """
-        def wbAlgo(trieNode, index):
-            if index == len(s):
-                return trieNode.terminal # done, consumed the whole string, are we at the end of a word?
-            nonlocal trieRoot
-            currChar = s[index]
-            # print(f'index: {index} char:{currChar}')
-            # print(f'trieNode.map{trieNode.map} trieNode.terminal{trieNode.terminal}')
-            if trieNode.terminal:
-                if currChar in trieRoot.map and currChar in trieNode.map:
-                    return wbAlgo(trieRoot.map[currChar], index+1) or wbAlgo(trieNode.map[currChar], index+1)
-                elif currChar in trieRoot.map:
-                    return wbAlgo(trieRoot.map[currChar], index+1)
-                elif currChar in trieNode.map:
-                    return wbAlgo(trieNode.map[currChar], index+1)
-                else:
-                    return False #TODO: what's this mean?
-            elif currChar in trieNode.map:
-                return wbAlgo(trieNode.map[currChar], index+1)
-            else:
-                return False
-            # if currChar in trieNode.map and trieNode.terminal:
-            #     return wbAlgo(trieRoot, index+1) or wbAlgo(trieNode.map[currChar], index+1)
-            # elif currChar in trieNode.map:
-            #     return wbAlgo(trieNode.map[currChar], index+1)
-            # elif trieNode.terminal:
-            #     return wbAlgo(trieRoot, index+1)
-            # else:
-            #     return False
+        # def wbAlgo(trieNode, index):
+        #     if index == len(s):
+        #         return trieNode.terminal # done, consumed the whole string, are we at the end of a word?
+        #     nonlocal trieRoot
+        #     currChar = s[index]
+        #     # print(f'index: {index} char:{currChar}')
+        #     # print(f'trieNode.map{trieNode.map} trieNode.terminal{trieNode.terminal}')
+        #     if trieNode.terminal:
+        #         if currChar in trieRoot.map and currChar in trieNode.map:
+        #             return wbAlgo(trieRoot.map[currChar], index+1) or wbAlgo(trieNode.map[currChar], index+1)
+        #         elif currChar in trieRoot.map:
+        #             return wbAlgo(trieRoot.map[currChar], index+1)
+        #         elif currChar in trieNode.map:
+        #             return wbAlgo(trieNode.map[currChar], index+1)
+        #         else:
+        #             return False #TODO: what's this mean?
+        #     elif currChar in trieNode.map:
+        #         return wbAlgo(trieNode.map[currChar], index+1)
+        #     else:
+        #         return False
+        #     # if currChar in trieNode.map and trieNode.terminal:
+        #     #     return wbAlgo(trieRoot, index+1) or wbAlgo(trieNode.map[currChar], index+1)
+        #     # elif currChar in trieNode.map:
+        #     #     return wbAlgo(trieNode.map[currChar], index+1)
+        #     # elif trieNode.terminal:
+        #     #     return wbAlgo(trieRoot, index+1)
+        #     # else:
+        #     #     return False
 
-        # Build trie
-        trieRoot = Trie()
-        for word in wordDict:
-            trieRoot.add(word, 0)
+        # # Build trie
+        # trieRoot = Trie()
+        # for word in wordDict:
+        #     trieRoot.add(word, 0)
         
-        # Word break algo
-        return wbAlgo(trieRoot, 0)
+        # # Word break algo
+        # return wbAlgo(trieRoot, 0)
 
-class Trie:
-    def __init__(self):
-        self.map = {}
-        self.terminal = False
+        """
+        Approach 2 by neetcode, go backwards, DP, try every word
+        DP[len(s)] = True
+        for i in reverse:
+            for w in words:
+                if in_bounds && chars_match && DP[i+len(w)]:
+                    DP[i] = True
+        return DP[0]
+        """
 
-    def add(self, word, index):
-        if index == len(word):
-            self.terminal = True # TODO: check
-            # print("TERMINAL")
-            return
-        char = word[index]
-        if char in self.map:
-            self.map[char].add(word, index+1)
-        else:
-            self.map[char] = Trie()
-            self.map[char].add(word, index+1)
-        # print(self.map) # think trie is correct
+        DP = [False for _ in s]
+        DP.append(True)
+        for i in range(len(s)-1, -1, -1):
+            for w in wordDict:
+                # choose order carefully, and most expensive operation at the end
+                if i+len(w)<=len(s) and DP[i+len(w)] and w==s[i:i+len(w)]:
+                    DP[i] = True
+                    break #1 true is good enough
+        return DP[0]
+            
 
-    # TODO: maybe i can put the wbAlgo in here? Think about elegant
+
+# class Trie:
+#     def __init__(self):
+#         self.map = {}
+#         self.terminal = False
+
+#     def add(self, word, index):
+#         if index == len(word):
+#             self.terminal = True # TODO: check
+#             # print("TERMINAL")
+#             return
+#         char = word[index]
+#         if char in self.map:
+#             self.map[char].add(word, index+1)
+#         else:
+#             self.map[char] = Trie()
+#             self.map[char].add(word, index+1)
+#         # print(self.map) # think trie is correct
+
+#     # TODO: maybe i can put the wbAlgo in here? Think about elegant
+            
+
