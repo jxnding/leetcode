@@ -18,11 +18,11 @@ class Solution:
         """
         def wbAlgo(trieNode, index):
             if index == len(s):
-                return True # done, consumed the whole string
+                return trieNode.terminal # done, consumed the whole string, are we at the end of a word?
             nonlocal trieRoot
             currChar = s[index]
-            print(f'index: {index} char:{currChar}')
-            print(f'trieNode.map{trieNode.map} trieNode.terminal{trieNode.terminal}')
+            # print(f'index: {index} char:{currChar}')
+            # print(f'trieNode.map{trieNode.map} trieNode.terminal{trieNode.terminal}')
             if trieNode.terminal:
                 if currChar in trieRoot.map and currChar in trieNode.map:
                     return wbAlgo(trieRoot.map[currChar], index+1) or wbAlgo(trieNode.map[currChar], index+1)
@@ -31,7 +31,7 @@ class Solution:
                 elif currChar in trieNode.map:
                     return wbAlgo(trieNode.map[currChar], index+1)
                 else:
-                    return False
+                    return False #TODO: what's this mean?
             elif currChar in trieNode.map:
                 return wbAlgo(trieNode.map[currChar], index+1)
             else:
@@ -59,7 +59,7 @@ class Trie:
         self.terminal = False
 
     def add(self, word, index):
-        if index == len(word) - 1:
+        if index == len(word):
             self.terminal = True # TODO: check
             # print("TERMINAL")
             return
@@ -71,4 +71,4 @@ class Trie:
             self.map[char].add(word, index+1)
         # print(self.map) # think trie is correct
 
-    # TODO: maybe i can put the wbAlgo in here? Think about elegant 
+    # TODO: maybe i can put the wbAlgo in here? Think about elegant
